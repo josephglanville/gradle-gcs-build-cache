@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.idlestate.gradle.caching
+package au.id.jpg.gradle.caching
 
 import org.gradle.api.GradleException
 import org.gradle.caching.BuildCacheService
@@ -30,30 +30,15 @@ class GCSBuildCacheServiceFactory : BuildCacheServiceFactory<GCSBuildCache> {
         val bucket = configuration.bucket
         val refreshAfterSeconds = configuration.refreshAfterSeconds ?: 0
 
-        if (bucket == null || bucket == "") {
-            throw gradleException("The name of the bucket has to be defined.")
+        if (bucket.isNullOrEmpty()) {
+            throw GradleException("The name of the bucket has to be defined.")
         }
 
-        describer
-                .type("Google Cloud Storage")
-                .config("credentials", credentials)
-                .config("bucket", bucket)
-                .config("refreshAfterSeconds", refreshAfterSeconds.toString())
+        describer.type("Google Cloud Storage")
+            .config("credentials", credentials)
+            .config("bucket", bucket)
+            .config("refreshAfterSeconds", refreshAfterSeconds.toString())
 
         return GCSBuildCacheService(credentials, bucket, refreshAfterSeconds.toLong())
-    }
-
-    fun gradleException(message: String): GradleException {
-        return GradleException("""
-                $message
-
-                remote( GCSBuildCache.class ) {
-                    credentials = 'my-key.json' // (optional)
-                    bucket = 'my-bucket'
-                    refreshAfterSeconds = 86400 // 24h (optional)
-                    enabled = true
-                    push = true
-                }
-        """.trimIndent())
     }
 }

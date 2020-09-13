@@ -3,12 +3,12 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     `java-gradle-plugin`
-    kotlin("jvm") version "1.4.0"
+    kotlin("jvm") version "1.3.72"
     id("com.github.hierynomus.license") version "0.15.0"
-    id("com.gradle.plugin-publish") version "0.10.1"
+    id("com.gradle.plugin-publish") version "0.12.0"
     `kotlin-dsl`
     `maven-publish`
-    id("org.jlleitschuh.gradle.ktlint") version "8.2.0"
+    id("org.jlleitschuh.gradle.ktlint") version "9.4.0"
 }
 
 group = "net.idlestate"
@@ -19,12 +19,16 @@ repositories {
 }
 
 dependencies {
-    implementation("com.google.cloud:google-cloud-storage:1.96.0")
+    implementation("com.google.cloud:google-cloud-storage:1.113.0")
     implementation(kotlin("stdlib-jdk8"))
 }
 
 ktlint {
-    reporters.set(setOf(ReporterType.PLAIN, ReporterType.CHECKSTYLE))
+    disabledRules.set(setOf("final-newline", "no-wildcard-imports"))
+    reporters {
+        reporter(ReporterType.PLAIN)
+        reporter(ReporterType.CHECKSTYLE)
+    }
 }
 
 gradlePlugin {

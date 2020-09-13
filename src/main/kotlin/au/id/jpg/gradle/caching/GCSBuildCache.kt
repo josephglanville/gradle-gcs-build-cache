@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.idlestate.gradle.caching
+package au.id.jpg.gradle.caching
 
 import org.gradle.caching.configuration.AbstractBuildCache
 

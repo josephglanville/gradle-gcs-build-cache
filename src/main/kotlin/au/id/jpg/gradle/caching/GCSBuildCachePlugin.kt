@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.idlestate.gradle.caching
+package au.id.jpg.gradle.caching
 
 import org.gradle.api.Plugin
 import org.gradle.api.initialization.Settings
@@ -23,6 +23,7 @@ import org.gradle.api.initialization.Settings
  *
  * @author Thorsten Ehlers (thorsten.ehlers@googlemail.com) (initial creation)
  */
+@Suppress("UNUSED")
 class GCSBuildCachePlugin : Plugin<Settings> {
     override fun apply(settings: Settings) {
         settings.buildCache {
